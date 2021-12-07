@@ -26,8 +26,8 @@ var countdownInterval = setInterval(function() {
 
   const current = {};
 
-  current.minutes = Math.floor(seconds / 60);
-  current.seconds = seconds % 60;
+  current.minutes = ('0' + (Math.floor(seconds / 60))).slice(-2);
+  current.seconds = ('0' + (seconds % 60)).slice(-2);
 
   secondsSinceStart = originalSeconds - seconds;
 
