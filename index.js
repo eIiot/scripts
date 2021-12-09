@@ -1,20 +1,23 @@
 fetch('https://api.github.com/repos/eiiot/scripts/contents')
   .then(async function(response) {
     const data = await response.json();
-    console.log(data)
+    const div = document.createElement('div');
     for (let i = 0; i < data.length; i++) {
       const file = data[i];
 
-      console.log(file)
-
       if (file.type == 'dir' && !file.name.startsWith('.')) {
-        console.log(file)
-        // create new a tag inside of the body
+        // check if folder contains index.html
+        const index = await fetch(`https://api.github.com/repos/eIiot/scripts/contents/${file.name}/index.html`)
+        // handle error
+        if (!index.ok) {continue};
+        console.log(index.ok);
         var a = document.createElement('a');
         a.href = './' + file.name;
         a.innerHTML = file.name;
-        document.body.appendChild(a);
-        document.body.appendChild(document.createElement('br'));
+        div.appendChild(a);
+        div.appendChild(document.createElement('br'));
       };
     };
+    document.getElementById('loading').style.display = 'none';
+    document.body.appendChild(div);
   });
