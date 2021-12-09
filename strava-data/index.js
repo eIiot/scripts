@@ -36,9 +36,6 @@ const getActivities = async (accessToken) => {
   return response.data;
 };
 
-// url = https://www.strava.com/oauth/authorize?client_id=67430&response_type=code&redirect_uri=http://localhost&approval_prompt=force&scope=activity:read_all
-
-
 express()
   .get('/', (req, res) => {
     console.log(req); 
@@ -46,16 +43,26 @@ express()
       .then((data) => {
         getActivities(data.access_token)
           .then((activities) => {
-            console.log(activities);
             res.send(activities);
-            // fs.writeFile('./output/activities.json', JSON.stringify(activities), (err) => {
-            //   if (err) {
-            //     console.log(err);
-            //   }
-            // });
+            let seconds = 0;
+            var meters_dist = 0;
+            let meters_climb = 0;
+            for (let i = 0; i < activities.length; i++) {
+              seconds += activities[i].elapsed_time;
+              meters_dist += activities[i].distance;
+              meters_climb += activities[i].total_elevation_gain;
+            }
+            var miles = meters_dist / 1609.34;
+            var hours = (seconds / 60) / 60;
+            var feet = meters_climb * 3.28084;
+            console.log(`This semester, you have ridden:`)
+            console.log(`${hours.toFixed(2)} hours`);
+            console.log(`${miles.toFixed(2)} miles`);
+            console.log(`${feet.toFixed(2)} feet`);
           });
       });
   })
   .listen(80, () => {
     console.log('listening on port 80');
+    console.log('login with Strava: https://www.strava.com/oauth/authorize?client_id=67430&response_type=code&redirect_uri=http://localhost&approval_prompt=force&scope=activity:read_all')
   });
