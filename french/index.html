@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>French Practice</title>
+</head>
+<body>
+<button id="play-button" onclick="play()">Play</button>
+<details id="english-dropdown">
+  <summary>English</summary>
+  <p id="english-meaning"></p>
+</details>
+<details id="french-dropdown">
+  <summary>French</summary>
+  <p id="french-meaning"></p>
+</details>
+Auto Close Summaries? <input type="checkbox" id="checkbox">
+</body>
+<style>
+  /* center everything vertically */
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  /* add padding to flex items */
+  details {
+    padding: 10px;
+  }
+  /* make the button bigger */
+  #play-button {
+    font-size: 2em;
+    cursor: pointer;
+  }
+
+  #checkbox {
+    margin-left: 10px;
+  }
+</style>
+<script src="./index.js"></script>
+</html>
