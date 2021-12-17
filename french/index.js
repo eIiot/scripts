@@ -67,14 +67,25 @@ const frenchDropdown = document.querySelector("#french-dropdown");
 const frenchMeaning = document.querySelector("#french-meaning");
 const checkBox = document.querySelector("#checkbox");
 
+var lastSound = null;
+
+function getRandomSound() {
+  const randomSoundNum = Math.floor(Math.random() * sounds.length);
+  if (lastSound == randomSoundNum) {
+    getRandomSound();
+  } else {
+    console.log("Got Sound: " + randomSoundNum);
+    lastSound = randomSoundNum;
+    return sounds[randomSoundNum];
+  };
+}
+
 // reset checkbox to false
 checkBox.checked = false;
 
 function play() {
-  // Get a random number between 0 and the length of the sounds array
-  const randomNumber = Math.floor(Math.random() * sounds.length);
-  // Get the sound object from the sounds array
-  const sound = sounds[randomNumber];
+  // Get a random sound
+  const sound = getRandomSound()
   // Create a new Audio object
   let audio = new Audio(sound.mp3);
   // Play the audio
