@@ -80,8 +80,8 @@ function play() {
   // Play the audio
   audio.play();
   // Update the divs with the meaning of the sound, with the appropriate "summary" class
-  englishMeaning.textContent = sound.french;
-  frenchMeaning.textContent = sound.english;
+  englishMeaning.textContent = sound.english;
+  frenchMeaning.textContent = sound.french;
 
   if (checkBox.checked) {
     englishDropdown.removeAttribute("open");
