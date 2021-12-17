@@ -1,65 +1,68 @@
 const sounds = [
   {
-    id: 1,
+    id: 0,
     mp3: "./sounds/1.mp3",
     french: "Comment tu vas ajourd'hui?",    
     english: "How are you today?"
   },
   {
-    id: 2,
+    id: 1,
     mp3: "./sounds/2.mp3",
     french: "Qu'est-ce que tu as fait hier soir?",
     english: "What did you do last night?"
   },
   {
-    id: 3,
+    id: 2,
     mp3: "./sounds/3.mp3",
     french: "Quelle ville aimes-tu visiter et pourquoi?",
     english: "Which city do you like to visit and why?"
   },
   {
-    id: 4,
+    id: 3,
     mp3: "./sounds/4.mp3",
     french: "Quelle est ta sujet préférée à l'école et pourquoi?",
     english: "What is your favorite subject at school and why?"
   },
   {
-    id: 5,
+    id: 4,
     mp3: "./sounds/5.mp3",
     french: "Comment est-ce que tu viens à l'école en général?",
     english: "How do you come to school in general?"
   },
   {
-    id: 6,
+    id: 5,
     mp3: "./sounds/6.mp3",
     french: "Quel âge avais-tu quand tu as appris à lire?",
     english: "How old were you when you learned to read?"
   },
   {
-    id: 7,
+    id: 6,
     mp3: "./sounds/7.mp3",
     french: "Quel temps faisait-il hier?",
     english: "What was the weather like yesterday?",
   },
   {
-    id: 8,
+    id: 7,
     mp3: "./sounds/8.mp3",
     french: "Quand es-tu allé à San Francisco?",
     english: "When did you go to San Francisco?",
   },
   {
-    id: 9,
+    id: 8,
     mp3: "./sounds/9.mp3",
     french: "As-tu jamais visité un pays étranger? Lequel?",
     english: "Have you ever visited a foreign country? Which one?"
   },
   {
-    id: 10,
+    id: 9,
     mp3: "./sounds/10.mp3",
     french: "Qu'est-ce que tu aimes faire quand tu as du temps libre?",
     english: "What do you like to do when you have free time?"
   }
 ]
+
+// get url parameters
+const urlParams = new URLSearchParams(window.location.search);
 
 const englishDropdown = document.querySelector("#english-dropdown");
 const englishMeaning = document.querySelector("#english-meaning");
@@ -67,12 +70,16 @@ const frenchDropdown = document.querySelector("#french-dropdown");
 const frenchMeaning = document.querySelector("#french-meaning");
 const checkBox = document.querySelector("#checkbox");
 
+const playthrough = urlParams.get("playthrough");
+const playedSounds = [];
+
 var lastSound = null;
 
 function getRandomSound() {
   const randomSoundNum = Math.floor(Math.random() * sounds.length);
-  if (lastSound == randomSoundNum) {
-    getRandomSound();
+  if (lastSound == randomSoundNum || playedSounds.includes(randomSoundNum)) {
+    console.log("already played " + randomSoundNum);
+    return getRandomSound();
   } else {
     console.log("Got Sound: " + randomSoundNum);
     lastSound = randomSoundNum;
@@ -84,8 +91,14 @@ function getRandomSound() {
 checkBox.checked = false;
 
 function play() {
+  if (playedSounds.length == sounds.length) {
+    alert("You have finished all the sounds. Restarting with a new random order.");
+    playedSounds.length = 0;
+  };
   // Get a random sound
-  const sound = getRandomSound()
+  const sound = getRandomSound();
+
+  console.log(sound)
   // Create a new Audio object
   let audio = new Audio(sound.mp3);
   // Play the audio
@@ -98,4 +111,16 @@ function play() {
     englishDropdown.removeAttribute("open");
     frenchDropdown.removeAttribute("open");
   };
+
+  if (playthrough == "true") {
+    playedSounds.push(sound.id);
+  };
 };
+
+function playAllRedirect() {
+  if (playthrough == "true") {
+    window.location.href = "./index.html?playthrough=false";
+  } else {
+    window.location.href = "./index.html?playthrough=true";
+  };
+}

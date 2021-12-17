@@ -17,6 +17,7 @@
   <p id="english-meaning"></p>
 </details>
 Auto Close Summaries? <input type="checkbox" id="checkbox">
+<button id="randomize-button" onclick="playAllRedirect()">Toggle Play Through All</button>
 </body>
 <style>
   /* center everything vertically */
@@ -26,8 +27,8 @@ Auto Close Summaries? <input type="checkbox" id="checkbox">
     align-items: center;
   }
   /* add padding to flex items */
-  details {
-    padding: 10px;
+  body > * {
+    margin: 10px;
   }
   /* make the button bigger */
   #play-button {
