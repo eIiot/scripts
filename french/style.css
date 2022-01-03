@@ -1,0 +1,43 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+/* center everything vertically */
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+/* add padding to flex items */
+#container > * {
+  margin: 10px;
+}
+/* make the button bigger */
+#play-button {
+  font-size: 2em;
+  cursor: pointer;
+}
+
+#checkbox {
+  margin-left: 10px;
+}
+
+#settings-dropdown h4 {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+#settings-dropdown p {
+  margin-bottom: 0;
+  margin-top: 0;
+};
+
+details summary {
+  cursor: pointer;
+}

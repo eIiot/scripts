@@ -61,6 +61,8 @@ const sounds = [
   }
 ]
 
+// sounds created with https://soundoftext.com/
+
 // get url parameters
 const urlParams = new URLSearchParams(window.location.search);
 
@@ -68,27 +70,58 @@ const englishDropdown = document.querySelector("#english-dropdown");
 const englishMeaning = document.querySelector("#english-meaning");
 const frenchDropdown = document.querySelector("#french-dropdown");
 const frenchMeaning = document.querySelector("#french-meaning");
-const checkBox = document.querySelector("#checkbox");
+const settingsDropdown = document.querySelector("#settings-dropdown");
+const autoCloseCheckBox = document.querySelector("#autoClose");
+const playThroughCheckBox = document.querySelector("#playThroughAll");
 
-const playthrough = urlParams.get("playthrough");
+const uncheckedSounds = JSON.parse(localStorage.getItem("uncheckedSounds")) || [];
+
+// add all sounds to the settings dropdown with a checkbox, and a label
+sounds.forEach(sound => {
+  const p = document.createElement("p");
+  const checkbox = document.createElement("input");
+  const label = document.createElement("label");
+  checkbox.type = "checkbox";
+  checkbox.id = `sound${sound.id}`;
+  checkbox.checked = !uncheckedSounds.includes(sound.id);
+  checkbox.addEventListener("change", () => {
+    if (!checkbox.checked) {
+      uncheckedSounds.push(sound.id);
+    } else {
+      uncheckedSounds.splice(uncheckedSounds.indexOf(sound.id), 1);
+    }
+    localStorage.setItem("uncheckedSounds", JSON.stringify(uncheckedSounds));
+  });
+  label.setAttribute("for", `sound${sound.id}`);
+  label.textContent = sound.french + " - " + sound.english;
+  p.appendChild(checkbox);
+  p.appendChild(label);
+  settingsDropdown.appendChild(p);
+});
+
 const playedSounds = [];
 
 var lastSound = null;
 
 function getRandomSound() {
   const randomSoundNum = Math.floor(Math.random() * sounds.length);
+  const soundChecked = document.querySelector(`#sound${randomSoundNum}`);
+
   if (lastSound == randomSoundNum || playedSounds.includes(randomSoundNum)) {
     console.log("already played " + randomSoundNum);
+    return getRandomSound();
+  } else if (!soundChecked.checked) {
+    console.log(randomSoundNum + " is not checked");
     return getRandomSound();
   } else {
     console.log("Got Sound: " + randomSoundNum);
     lastSound = randomSoundNum;
     return sounds[randomSoundNum];
   };
-}
+};
 
 // reset checkbox to false
-checkBox.checked = false;
+autoCloseCheckBox.checked = false;
 
 function play() {
   if (playedSounds.length == sounds.length) {
@@ -107,20 +140,17 @@ function play() {
   englishMeaning.textContent = sound.english;
   frenchMeaning.textContent = sound.french;
 
-  if (checkBox.checked) {
+  if (autoCloseCheckBox.checked) {
     englishDropdown.removeAttribute("open");
     frenchDropdown.removeAttribute("open");
   };
 
-  if (playthrough == "true") {
+  if (playThroughCheckBox.checked) {
     playedSounds.push(sound.id);
   };
 };
 
-function playAllRedirect() {
-  if (playthrough == "true") {
-    window.location.href = "./index.html?playthrough=false";
-  } else {
-    window.location.href = "./index.html?playthrough=true";
-  };
-}
+// reload page on playThroughCheckBox change
+playThroughCheckBox.addEventListener("change", function() {
+  window.location.reload();
+}); 
