@@ -95,6 +95,8 @@ sounds.forEach(sound => {
   label.setAttribute("for", `sound${sound.id}`);
   label.textContent = sound.french + " - " + sound.english;
   p.appendChild(checkbox);
+  // whitespace
+  p.appendChild(document.createTextNode(" "));
   p.appendChild(label);
   settingsDropdown.appendChild(p);
 });

@@ -5,11 +5,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>French Practice</title>
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./output.css">
 </head>
 <body>
-<div id="container">
-  <button id="play-button" onclick="play()">Play</button>
+<div id="container" class="flex flex-col items-center justify-center h-screen children:m-2 children:block">
+  <button id="play-button" onclick="play()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-20 rounded">Play</button>
   <details id="french-dropdown">
     <summary>French</summary>
     <p id="french-meaning"></p>
@@ -20,7 +20,7 @@
   </details>
   <details id="settings-dropdown">
     <summary>Settings</summary>
-    <h4>General Settings</h4>
+    <h3 class="font-bold">General Settings</h3>
     <p>
       <input type="checkbox" id="autoClose">
       <label for="autoClose">Auto Close Summaries</label>
@@ -29,7 +29,7 @@
       <input type="checkbox" id="playThroughAll">
       <label for="playThroughAll">Play Through All</label>
     </p>
-    <h4>Sound Selection</h4>
+    <h3 class="font-bold">Sound Selection</h3>
   </details>
 </div>
 </body>
