@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Output</title>
+  <link href="./tailwind.css" rel="stylesheet">
+  <link href="./output.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+  <div id="buttonPt" class="flex justify-center my-5 hideWhilePrinting">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="print()">
+      Print to PDF (High Quality)
+    </button>
+  </div>
+
+  <div id="buttonDl" class="flex justify-center my-5 hideWhilePrinting">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="download()">
+      Download PDF (Low Quality)
+    </button>
+  </div>
+
+  <div id="buttonDl" class="flex justify-center my-5 hideWhilePrinting">
+    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="window.history.back();">
+      Exit
+    </button>
+  </div>
+
+  <div id="pdf">
+    <div id="roundRobinSheetTitle" class="container m-auto">
+      <div class="flex items-center justify-center">
+        <div class="flex items-center text-3xl">
+          Round Robin Sheet
+        </div>
+      </div>
+    </div>
+
+    <div id="roundRobinSheet">
+      <div class="container m-auto pt-5">
+        <div class="flex items-center justify-center">
+          <div class="flex items-center text-xl">
+            Weight Class: <a class="mx-2" id="weightClass">1</a>
+          </div>
+        </div>
+        <div class="flex items-center justify-center p-3 text-center">
+          <table id="peopleTable">
+            <tr>
+              <th>Wrestlers</th>
+            </tr>
+          </table>
+        </div>
+        <div class="flex items-center justify-center p-3 text-center">
+          <table id="matchTable" class="border-collapse border-2">
+
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-break"></div>
+  </div>
+
+</body>
+<script src="output.js"></script>
+</html>
