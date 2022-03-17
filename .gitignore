@@ -2,3 +2,6 @@ ha-null-device-finder/devices.json
 strava-data/activites.json
 *.env
 *node_modules/
+
+cert.pem
+key.pem

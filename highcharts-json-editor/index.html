@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Highcharts Renderer from JSON</title>
+  <link rel="stylesheet" href="tailwind.css">
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap" rel="stylesheet"> 
+</head>
+<body>
+  <div class="flex flex-row justiy-center items-center h-screen p-2">
+    <textarea class="rounded border-2 border-[#800000]" cols="60" rows="30" type="text" name="textbox" id="json-input"></textarea>
+    <div id="container" class="p-2"></div>
+  </div>
+</body>
+</html>
+
+<script>
+  try {
+  Highcharts.chart('container', JSON.parse(document.getElementById('json-input').value));
+  } catch (e) {
+    console.log(e);
+  }
+
+  // on change of the textarea, update the chart
+  document.getElementById('json-input').onchange = function() {
+    try {
+  Highcharts.chart('container', JSON.parse(document.getElementById('json-input').value));
+  } catch (e) {
+    console.log(e);
+  }
+  };
+</script>
